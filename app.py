@@ -1,8 +1,7 @@
 import boto3
 from flask import Flask, render_template, request, send_file, redirect, url_for, Response
 import os
-os.environ['AWS_ACCESS_KEY_ID'] = 'AKIARZ3TJ5P7G6FVKI6H'
-os.environ['AWS_SECRET_ACCESS_KEY'] = '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'
+
 
 app = Flask(__name__)
 s3 = boto3.client('s3')
