@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Video Transcoder</title>
+        <link rel="stylesheet" type="text/css" href= {{ url_for('static', filename='styles.css') }} />
+    </head>
+    <body>
+        <header>
+            <h1>Transcode Video</h1>
+        </header>
+        <main>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <div>
+                    <input type="file" name="file">
+                </div>
+                <br>
+                <div><label for="preset">Select Preset:</label>
+                    <select id="preset" name="preset">
+                        <option value="1351620000001-000001">Generic 1080p</option>
+                        <option value="1351620000001-000010">Generic 720p</option>
+                        <option value="1351620000001-000020">Generic 480p 16:9</option>
+                        <option value="1351620000001-000030">Generic 480p 4:3</option>
+                        <option value="1351620000001-000040">Generic 360p 16:9</option>
+                        <option value="1351620000001-000050">Generic 360p 4:3</option>
+                    </select>
+                </div>
+                <br>
+                <div class="auth-options">
+                    <button type="submit" value="Transcode">Transcode Now!</button>
+                </div>
+            </form>
+        </main>
+    </body>
+</html>
