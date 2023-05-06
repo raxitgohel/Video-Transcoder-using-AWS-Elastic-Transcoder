@@ -1,7 +1,7 @@
+# Importing AWS SDK for Python(boto3) which will help in using AWS Transcoder and S3 Buckets.
 import boto3
 from flask import Flask, render_template, request, send_file, redirect, url_for, Response
 import os
-
 
 app = Flask(__name__)
 s3 = boto3.client('s3')
@@ -16,8 +16,8 @@ def upload():
     file = request.files['file']
     filename = file.filename
     outfile = filename.split('.')[0]+'_out.mp4'
-    s3.upload_fileobj(file, 'inputvideobucket', filename)
-    pipeline_id = '1683130471490-7vb2xr'
+    s3.upload_fileobj(file, '<INPUT_VIDEO_BUCKET>', filename)
+    pipeline_id = '<PIPELINE_ID>'
     preset_id = request.form['preset']
     job = et.create_job(PipelineId=pipeline_id, Input={'Key': filename}, Output={'Key': outfile, 'PresetId': preset_id})
     job_id = job['Job']['Id']
@@ -37,7 +37,7 @@ def status(job_id):
 @app.route('/download/<path:key>')
 def download(key):
     try:
-        file_obj = s3.get_object(Bucket='outputvideobucket', Key=key)
+        file_obj = s3.get_object(Bucket='<OUTPUT_VIDEO_BUCKET>', Key=key)
         file_content = file_obj['Body'].read()
         response = Response(file_content)
         response.headers['Content-Disposition'] = 'attachment; filename=' + key
@@ -46,4 +46,4 @@ def download(key):
         return str(e)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
